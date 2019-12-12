@@ -13,7 +13,7 @@ class AwsConnection{
         const bucket = 'documents-pdf';
         var amazonS3 = new AWS.S3();
         const Key =`${Date.now()}`;
-        const buffer = new Buffer(file.base64.replace(/^data:appilcation\/\w+;base64,/, ""),'base64')
+        const buffer = new Buffer(file.base64.split(';base64,').pop(),'base64')
         const data = {
             ACL: 'public-read',
             Bucket: bucket,

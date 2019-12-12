@@ -12,9 +12,10 @@ app.listen(PORT, () => {
 app.use(cors());
 app.use(bodyParser());  
 app.use(bodyParser.urlencoded({
-    limit: '50mb',
+    parameterLimit:50000,
+    limit: '10mb',
     extended: true}));
-app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.json({limit: '10mb'}));
 
 
 const router = require('./router/router')
