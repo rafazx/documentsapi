@@ -3,10 +3,8 @@ const router = express.Router();
 
 const DocumentController = require('../controllers/DocumentController');
 
-router.get('/test', (req, res) => {
-    res.render('index.ejs');
-});
-
 router.post('/document/create', DocumentController.create);
+router.put('/document/:id', DocumentController.update)
+router.get('/' , DocumentController.getAll)
 
 module.exports = router;
