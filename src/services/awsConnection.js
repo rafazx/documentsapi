@@ -12,23 +12,26 @@ class AwsConnection{
      async upload(file) {
         const bucket = 'documents-pdf';
         var amazonS3 = new AWS.S3();
-        const Key =`${Date.now()}+${file.name}`;
+        const Key =`${Date.now()}`;
+        const buffer = new Buffer(file.base64.replace(/^data:appilcation\/\w+;base64,/, ""),'base64')
         const data = {
             ACL: 'public-read',
             Bucket: bucket,
             Key,
-            Body: file.base64,
+            Body: buffer,
             ContentType: file.type
         };
-         return await amazonS3.putObject(data).promise().then((resolve, reject) => {
+        return await amazonS3.putObject(data).promise()
+         .then((resolve ,reject) => {
             if (reject) {
-                throw `Falha ao enviar arquivo ${file.name} para ${bucket}`;
+                throw `Falha ao enviar arquivo ${message._id}.${ext} para ${bucket}`;   
             }
-            return `https://${bucket}.s3-us-west-1.s3.amazonaws.com/${Key}`;
+            return `https://${bucket}.s3.us-east-2.amazonaws.com/${Key}`;
         }
-        ).catch((e) => {
-            console.log(e);
+        ).catch((error) => {
+            throw new Error(error.message);
         });
+    
     }
 }
 

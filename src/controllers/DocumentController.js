@@ -1,6 +1,5 @@
 const Document = require('../model/Document');
 const aws = require('../services/awsConnection')
-const helper = require('../helper/generateFile')
 
 class DocumentControoler {
     async create(req, res) {
@@ -24,10 +23,11 @@ class DocumentControoler {
             const { id } = req.params;
             const { file } = req.body;
             const document = await Document.find({ '_id' : id });
-            const fileContent = await helper.createFile(file.base64, file.name);
-            await aws.upload(file);
             if(!document) { return res.status(200).send('O documento não foi achado no banco de dados')};
-            return res.send('Documento Atualizado com sucesso')
+            const fileUrl = await aws.upload(file);
+            document[0].fileUrl = fileUrl;
+            document[0].save();
+            return res.status(200).send({ success : true , fileUrl})
         }catch(err) {
             return res.status(500).send(err.message);
         }

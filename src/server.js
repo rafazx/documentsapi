@@ -12,7 +12,6 @@ app.listen(PORT, () => {
 app.use(cors());
 app.use(bodyParser());  
 app.use(bodyParser.urlencoded({
-    parameterLimit: 100000,
     limit: '50mb',
     extended: true}));
 app.use(bodyParser.json({limit: '50mb'}));
