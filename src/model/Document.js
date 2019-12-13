@@ -6,7 +6,7 @@ const DocumentShema = new Schema({
         require : true
     },
     content : {
-        type : Schema.Types.Mixed
+        type : String
     },
     fileUrl : {
         type : String
