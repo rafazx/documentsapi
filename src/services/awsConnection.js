@@ -4,8 +4,8 @@ const fs = require('fs');
 class AwsConnection{
     constructor(){
         AWS.config.update({
-            accessKeyId: "AKIAUI5ORBK77S5OD674",
-            secretAccessKey: "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"
+            accessKeyId: null",
+            secretAccessKey: null
           });
     }
 
